@@ -1,0 +1,26 @@
+<div>
+    <h2>¡Bienvenido {{productsandUser.user.role}} {{productsandUser.user.first_name}} {{productsandUser.user.last_name}}!</h2>
+    <a href="/profile"><button>Perfil</button></a>
+    <a href="/carts/{{productsandUser.user.idCart}}"><button>Carrito</button></a>
+    <a href="/api/sessions/logout"><button>Desconectarse</button></a>
+    <h1>Productos:</h1>
+    {{#each productsandUser.products.docs}}
+    <div>
+        <h4><a href="http://localhost:8080/products/{{this.id}}">{{this.title}}</a> &nbsp; </h4>
+        <hr>
+    </div>
+    <br/>
+    {{/each}}
+</div>
+<br/>
+<div>
+    {{#if productsandUser.products.hasPrevPage}}
+        <a href={{productsandUser.products.prevLink}}><< Anterior</a>
+    {{/if}}
+    &nbsp;
+    {{productsandUser.products.page}}
+    &nbsp;
+    {{#if productsandUser.products.hasNextPage}}
+        <a href={{productsandUser.products.nextLink}}>Siguiente >></a>
+    {{/if}} 
+</div>

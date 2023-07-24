@@ -1,0 +1,17 @@
+<div>   
+    <h1>Carrito:</h1>
+    {{#each carritoandUser.carritofinal}}
+    <div>
+        <h4>{{this.title}} &nbsp; </h4>
+        <p>Descripcion: {{this.description}} &nbsp; </p>
+        <p>Precio: ${{this.price}} &nbsp; </p>
+        <p>Categoria: {{this.category}} &nbsp; </p>
+        <p>carrito: {{carritoandUser.user.name}}</p>
+        <button onclick="botonRemoveFromCart('{{carritoandUser.user.idCart}}', '{{this._id}}')">Quitar del carrito</button>
+        <hr>
+    </div>
+    <br/>
+    {{/each}}
+    <a href="http://localhost:8080"><button>Volver a los productos</button></a>
+    <script src="/js/cart.js"></script>
+</div>

@@ -1,0 +1,176 @@
+[
+  {
+    "id": "8e66c26c-e1bf-4b08-beba-9802901aa905",
+    "title": "producto prueba 1 revisado",
+    "description": "Este es un producto prueba actualizado editado",
+    "price": 1001,
+    "thumbnail": "Sin imagen",
+    "code": "a1",
+    "stock": 10
+  },
+  {
+    "id": "7c182b8d-ab25-4df4-ae34-8fda7f65c26c",
+    "title": "producto prueba 2",
+    "description": "Este es un producto prueba",
+    "price": 100,
+    "category": "comida",
+    "thumbnail": "Sin imagen",
+    "status": true,
+    "code": "a12",
+    "stock": 10
+  },
+  {
+    "id": "e21c151c-ba9d-42b6-b611-56c0e850237f",
+    "title": "producto prueba 3",
+    "description": "Este es un producto prueba",
+    "price": 500,
+    "category": "armas",
+    "thumbnail": "Sin imagen",
+    "status": true,
+    "code": "a123",
+    "stock": 10
+  },
+  {
+    "id": "e421007a-340a-4668-bc2d-09afcdd889d6",
+    "title": "producto prueba 4",
+    "description": "Este es un producto prueba",
+    "price": 5000,
+    "category": "bombas",
+    "thumbnail": "Sin imagen",
+    "status": false,
+    "code": "a1234",
+    "stock": 1
+  },
+  {
+    "id": "820f82bc-9f65-4de1-8fc4-8f5e870d3658",
+    "title": "producto prueba 5",
+    "description": "Este es un producto prueba",
+    "price": 300,
+    "category": "perro",
+    "thumbnail": "Sin imagen",
+    "status": false,
+    "code": "a12345",
+    "stock": 15
+  },
+  {
+    "id": "17b3df10-9787-4e2b-8be2-3e1a2547f9bf",
+    "title": "producto prueba 6",
+    "description": "Este es un producto prueba",
+    "price": 3200,
+    "category": "gato",
+    "thumbnail": "gatito.jpg",
+    "status": true,
+    "code": "a123456",
+    "stock": 10
+  },
+  {
+    "id": "28f44d31-bc4b-4014-9ce3-cd4798ead48b",
+    "title": "producto prueba 6",
+    "description": "Este es un producto prueba",
+    "price": 3200,
+    "category": "gato",
+    "thumbnail": "gatito2.jpg",
+    "status": true,
+    "code": "a1234567",
+    "stock": 10
+  },
+  {
+    "id": "fea32520-732b-4957-94c4-79c1a33c9f8a",
+    "title": "producto prueba 8",
+    "description": "Este es un producto prueba",
+    "price": 99999,
+    "category": "clasificado",
+    "thumbnail": "ovni.jpg",
+    "status": true,
+    "code": "a12345678",
+    "stock": 1
+  },
+  {
+    "id": "262088b0-a8ce-4f88-9b45-0e01908ec8e1",
+    "title": "producto prueba 8",
+    "description": "Este es un producto prueba",
+    "price": 99999,
+    "category": "desclasificado",
+    "thumbnail": "nave.jpg",
+    "status": true,
+    "code": "a123456789",
+    "stock": 12
+  },
+  {
+    "id": "68769e13-f9e6-4aa9-95c6-4c47214996fb",
+    "title": "producto prueba 10",
+    "description": "Este es un producto prueba",
+    "price": 2,
+    "category": "comida",
+    "thumbnail": "Sin imagen",
+    "status": true,
+    "code": "a1234567891",
+    "stock": 156
+  },
+  {
+    "id": "c6aff8e3-5e93-4b45-87a2-6f981aa7d55b",
+    "title": "producto prueba 11",
+    "description": "Este es un producto prueba",
+    "price": 100,
+    "category": "comida",
+    "thumbnail": "Sin imagen",
+    "status": true,
+    "code": "a12133213123213131232132",
+    "stock": 10
+  },
+  {
+    "id": "d5708d44-ce9d-4ab6-9fa2-1d12b60d1bf1",
+    "title": "producto prueba 12",
+    "description": "Este es un producto prueba",
+    "price": 100,
+    "category": "comida",
+    "thumbnail": "Sin imagen",
+    "status": true,
+    "code": "a12133213123213131232a132",
+    "stock": 10
+  },
+  {
+    "id": "2c2c7a87-e302-4835-8dc8-9b5b0fefbf9a",
+    "title": "producto prueba 13",
+    "description": "Este es un producto prueba",
+    "price": 100,
+    "category": "comida",
+    "thumbnail": "Sin imagen",
+    "status": true,
+    "code": "a1213321312321313123a2a132",
+    "stock": 10
+  },
+  {
+    "id": "d4aa4c4e-367e-419d-a4f7-376fb3d35629",
+    "title": "producto prueba 2",
+    "description": "Este es un producto prueba",
+    "price": 100,
+    "category": "comida",
+    "thumbnail": "Sin imagen",
+    "status": true,
+    "code": "a1asdsadsadassssdasdsadsadsa",
+    "stock": 10
+  },
+  {
+    "id": "900a9d6d-9e3e-4bd6-8fe8-bdbf744ebfd2",
+    "title": "producto prueba 2",
+    "description": "Este es un producto prueba",
+    "price": 100,
+    "category": "comida",
+    "thumbnail": "Sin imagen",
+    "status": true,
+    "code": "a1asdsadsadassssddsadsadasdsadasdsadsadsa",
+    "stock": 10
+  },
+  {
+    "id": "b5be09a5-a773-463f-888a-3acc28dfab24",
+    "title": "producto prueba 2",
+    "description": "Este es un producto prueba",
+    "price": 100,
+    "category": "comida",
+    "thumbnail": "Sin imagen",
+    "status": true,
+    "code": "a1asdsadsadasadasdsadssssddsadsadasdsadasdsadsadsa",
+    "stock": 10
+  }
+]
