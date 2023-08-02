@@ -4,14 +4,17 @@ import userModel from "../daos/mongodb/models/Users.model.js";
 import { createHash, isValidPassword } from "../utils.js";
 import local from "passport-local";
 import CartManager from "../daos/mongodb/classes/cartManager.class.js";
+import config from "./config.js";
+import { v4 as uuidv4 } from 'uuid';
 
 const cartManager = new CartManager();
 const LocalStrategy = local.Strategy;
+const githubClientId = config.githubClientId;
 
 export const initializePassport = () => {
     passport.use('github', new githubStrategy({
-        clientID: "Iv1.584b1e9ba2eb0879",
-        clientSecret: "e406b22cc4cc659673b351ba999ece5bfe1f6061",
+        clientID: config.githubClientId,
+        clientSecret: config.githubSecret,
         callbackURL: "http://localhost:8080/api/sessions/githubcallback"
     }, async (accessToken, refreshToken, profile, done) => {
         let user = await userModel.findOne({ email: profile.profileUrl });
@@ -64,6 +67,20 @@ passport.use('register', new LocalStrategy(
 ))
 passport.use('login', new LocalStrategy({usernameField: 'email'}, async (username, password, done) => {
     try{
+        if (username == config.adminEmail && password == config.adminPassword) {
+            console.log("Admin found");
+            const user = {
+                _id: "64cab0b5d25f6b2a687bc567",
+                first_name: 'NombreAdmin',
+                last_name: 'ApellidoAdmin',
+                email: 'admincoder@coder.com',
+                age: 99,
+                role: 'admin',
+                idCart: config.adminCart,
+                __v: 0
+            }
+        return done(null, user);
+        }
         const user = await userModel.findOne({ email:username });
         if (!user) {
             console.log("User not found");
@@ -73,6 +90,7 @@ passport.use('login', new LocalStrategy({usernameField: 'email'}, async (usernam
             console.log("Invalid password");
             return done (null,false)
         }
+        console.log("User found: " + user);
         return done(null, user);
     }
     catch (error) {
