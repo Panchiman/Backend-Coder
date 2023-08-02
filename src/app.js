@@ -15,6 +15,7 @@ import routerAuth from './routes/auth.router.js';
 import routerSessions from './routes/sessions.router.js';
 import passport from 'passport';
 import {initializePassport} from './config/passsport.config.js';
+import config from './config/config.js';
 
 const app = express();
 const productManager = new ProductManager();
@@ -23,9 +24,9 @@ const productManager = new ProductManager();
 
 app.use(session({
     store: new MongoStore({
-    mongoUrl: "mongodb+srv://Panchiman:Mongo666@backendcoderhouse.7dnc3hj.mongodb.net/",
+    mongoUrl: config.mongoUrl,
     }),
-    secret: "mongoSecret",
+    secret: config.mongoSecret,
     resave: true,
     saveUninitialized: false,
 }))
@@ -53,7 +54,7 @@ app.use('/', routerAuth)
 app.use('/api/sessions', routerSessions)
 
 
-const expressServer = app.listen(8080, () => console.log("Listening"));
+const expressServer = app.listen(config.port, () => console.log("Listening on port " + config.port + "..."));
 const socketServer = new Server(expressServer);
 
 

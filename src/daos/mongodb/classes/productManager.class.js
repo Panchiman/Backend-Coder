@@ -1,11 +1,12 @@
 import fs from 'fs';
 import mongoose from 'mongoose';
 import { productsModel } from '../models/product.models.js';
+import config from "../../../config/config.js";
 
 
 export default class ProductManager {
     connection = mongoose.connect(
-        "mongodb+srv://Panchiman:Mongo666@backendcoderhouse.7dnc3hj.mongodb.net/"
+        config.mongoUrl
     );
         async addProduct(product) {
             try {

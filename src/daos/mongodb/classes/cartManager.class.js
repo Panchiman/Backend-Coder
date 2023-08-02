@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 import { cartModel } from "../models/carts.model.js";
 import ProductManager from "./productManager.class.js";
+import config from "../../../config/config.js";
 
 
 export default class CartManager {
     connection = mongoose.connect(
-        "mongodb+srv://Panchiman:Mongo666@backendcoderhouse.7dnc3hj.mongodb.net/"
+        config.mongoUrl
     );
     productManager = new ProductManager();
 
