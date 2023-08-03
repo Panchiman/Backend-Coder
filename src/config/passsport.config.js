@@ -73,7 +73,7 @@ passport.use('login', new LocalStrategy({usernameField: 'email'}, async (usernam
                 _id: "64cab0b5d25f6b2a687bc567",
                 first_name: 'NombreAdmin',
                 last_name: 'ApellidoAdmin',
-                email: 'admincoder@coder.com',
+                email: config.adminEmail,
                 age: 99,
                 role: 'admin',
                 idCart: config.adminCart,
