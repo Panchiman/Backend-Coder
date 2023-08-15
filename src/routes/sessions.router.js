@@ -1,5 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
+import userDTO from "../services/sessions.service.js";
 
 const router = Router();
 
@@ -46,7 +47,7 @@ router.get("/logout", async (req, res) => {
     });
 }); */
 
-router.get("/github", passport.authenticate('github', {scope: ['user:email']}), async(req, res) => {})
+router.get("/github", passport.authenticate('github', {scope: ['user:email']}), async (req, res) => {})
 
 router.get("/githubcallback", passport.authenticate('github', {failureRedirect:'/failregister'}), async (req, res) => {
     req.session.user = req.user
@@ -54,7 +55,15 @@ router.get("/githubcallback", passport.authenticate('github', {failureRedirect:'
 })
 
 router.get("/current", (req, res) => {
-    res.send(req.session.user)
+    if (req.isAuthenticated()){
+        const user = req.session.user
+        const finalUser = new userDTO(user)
+        res.send(finalUser)
+
+    }
+    else{
+        res.send({error: "user don't authenticated"})
+    }
 })
 
 export default router

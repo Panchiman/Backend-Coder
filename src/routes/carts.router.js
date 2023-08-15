@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getCartService, deleteFromCartService, getCartsService,createCartService, updateProductQuantityService, clearCartService, addToCartService, updateCartService } from "../services/carts.service.js";
+import { getCartService, deleteFromCartService, getCartsService,createCartService, updateProductQuantityService, clearCartService, addToCartService, updateCartService, purchaseService } from "../services/carts.service.js";
 
 const router = Router();
 
@@ -52,6 +52,10 @@ router.put("/:cid/products/:pid", async (req, res) => {
     const cartId = req.params.cid;
     const productId = req.params.pid;
     await updateProductQuantityService(cartId, productId, products);
+})
+
+router.put("/:cid/purchase", async (req, res) => {
+    await purchaseService(req.params.cid)
 })
 
 export default router;

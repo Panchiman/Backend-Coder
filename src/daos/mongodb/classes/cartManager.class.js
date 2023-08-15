@@ -58,8 +58,16 @@ export default class CartManager {
     async addToCart (idCart, idProduct){
         try {
             const cart = await this.getCartById(idCart);
-            const product = await this.productManager.getProductById(idProduct);
-            cart.products.push({ product: product });
+            const index =  cart.products.findIndex((item) => item.product._id == idProduct)
+            const producto = await this.productManager.getProductById(idProduct);
+            console.log(producto)
+            if (index == -1){
+                cart.products.push({ product: producto, amount: 1 });
+            }
+            else{
+                cart.products.splice(index,1,{ product: producto, amount: cart.products[index].amount + 1 })
+            }
+            console.log(index)
             await cart.save();
             console.log("añadido al carrito")
             return;

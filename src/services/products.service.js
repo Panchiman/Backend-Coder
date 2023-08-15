@@ -51,3 +51,10 @@ export const updateProductService = async (productId, product) => {
 export const addProductService = async (product) => {
     productManager.addProduct(product);
 }
+
+export const substractToProductStock = async (productId, amount) =>{
+    const product = productManager.getProductById(productId)
+    if (!product){
+        return {error:"Product don't exist"}
+    }
+}

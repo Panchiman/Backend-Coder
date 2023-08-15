@@ -12,7 +12,9 @@ export const getCartService = async (user, id, bole) => {
     let carritofinal = [];
     function listaCarrito (){
         for (let index = 0; index < carrito.length; index++) {
-            carritofinal.push(carrito[index].product)
+            let productocarrito = {}
+            productocarrito = {product: carrito[index].product, amount:carrito[index].amount}
+            carritofinal.push(productocarrito)
         }
     }
     
@@ -50,6 +52,23 @@ export const updateProductQuantityService = async (cartId, productId, products) 
     await cartManager.updateProductQuantity(cartId, productId, products);
     
 }
+
 export const createCartService = async () => {
     cartManager.createCart();
+}
+
+export const purchaseService = async (id) =>{
+    const cart = await cartManager.getCartById(id);
+    const carrito = cart.products;
+    let counter = 0
+    let price = 0
+    for (const item of carrito){
+        if (substractToProductStock (item.product._id, item_amount)){
+            carrito.splice(counter,1)
+            price = price + item.product.price * item_amount
+        }
+        counter++
+    }
+
+
 }
