@@ -35,20 +35,20 @@ router.get('/:pid', async (req, res) => {
 });
 
 
-router.post("/", passport.authenticate('login',{failureRedirect:'/faillogin'}), roleAdminCheck, async (req, res) => {
+router.post("/", async (req, res) => {
     const product = req.body;
     addProductService(product);
     res.send({ status: "success" });
 });
 
-router.put("/:pid", roleAdminCheck, (req, res) => {
+router.put("/:pid", (req, res) => {
     const productId = req.params.pid;
     const product = req.body;
     updateProductService(productId, product);
     res.send({ status: "success" });
 })
 
-router.delete("/:pid", roleAdminCheck, (req, res) => {
+router.delete("/:pid", (req, res) => {
     const productId = req.params.pid;
     deleteProductService(productId);
     res.send({ status: "success" });

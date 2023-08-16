@@ -1,7 +1,10 @@
 
 import CartManager from "../daos/mongodb/classes/cartManager.class.js";
+import UserManager from "../daos/mongodb/classes/userManager.class.js";
+import { substractToProductStock } from "./products.service.js";
 
 const cartManager = new CartManager();
+const userManager = new UserManager();
 
 export const getCartService = async (user, id, bole) => {
     const cart = await cartManager.getCartById(id,bole);
@@ -57,18 +60,44 @@ export const createCartService = async () => {
     cartManager.createCart();
 }
 
-export const purchaseService = async (id) =>{
-    const cart = await cartManager.getCartById(id);
-    const carrito = cart.products;
-    let counter = 0
-    let price = 0
-    for (const item of carrito){
-        if (substractToProductStock (item.product._id, item_amount)){
-            carrito.splice(counter,1)
-            price = price + item.product.price * item_amount
+export const purchaseService = async (id, email) =>{
+    const user = await userManager.findUserByCart(id)
+    console.log("user")
+    console.log(user)
+    console.log("email")
+    console.log(email)
+    
+    if (user.email == email){
+        const cart = await cartManager.getCartById(id);
+        let carrito = cart.products;
+        let counter = 0
+        let price = 0
+        let productos = []
+        let deleteCounter = []
+        const carritoLista = []
+        for (const item of carrito){
+            if (await substractToProductStock (item.product._id, item.amount) == true){
+                price = price + item.product.price * item.amount
+                productos.push({product:item.product.title, price: item.product.price, amount: item.amount})
+                deleteCounter.push(counter)
+            }
+            else{
+                carritoLista.push(item)
+            }
+            counter = counter + 1
         }
-        counter++
+    
+        if(carritoLista.length > 0){
+            cart.products = []
+        }
+        else{
+            cart.products = carritoLista
+        }
+        await cart.save();
+        
+        return {price: price, products:productos}
     }
-
-
+    else{
+        return null;
+    }
 }

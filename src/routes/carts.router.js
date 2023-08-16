@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { getCartService, deleteFromCartService, getCartsService,createCartService, updateProductQuantityService, clearCartService, addToCartService, updateCartService, purchaseService } from "../services/carts.service.js";
+import TicketDTO from "../services/ticket.service.js";
 
 const router = Router();
 
@@ -55,7 +56,17 @@ router.put("/:cid/products/:pid", async (req, res) => {
 })
 
 router.put("/:cid/purchase", async (req, res) => {
-    await purchaseService(req.params.cid)
+    console.log("sesion email")
+    console.log(req.user.email)
+    const ticket = await purchaseService(req.params.cid, req.user.email)
+    if (!ticket){
+        res.send({error: "Wrong cart!"})
+    }
+    else{
+        const ticketFinal = new TicketDTO(ticket.products,ticket.price,req.user.email)
+        res.send(ticketFinal)
+
+    }
 })
 
 export default router;

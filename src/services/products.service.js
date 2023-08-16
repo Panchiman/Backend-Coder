@@ -53,8 +53,18 @@ export const addProductService = async (product) => {
 }
 
 export const substractToProductStock = async (productId, amount) =>{
-    const product = productManager.getProductById(productId)
+    const product = await productManager.getProductById(productId)
+    console.log (product.stock)
     if (!product){
         return {error:"Product don't exist"}
+    }
+    if (product.stock < amount){
+        console.log("retorno falso")
+        return false
+    }
+    else{
+        console.log("retorno true")
+        await productManager.updateProduct(productId, {stock: product.stock - amount})
+        return true
     }
 }
