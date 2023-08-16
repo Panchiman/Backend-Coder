@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-import userDTO from "../services/sessions.service.js";
+import userDTO from "../services/DTO/sessions.service.js";
 
 const router = Router();
 

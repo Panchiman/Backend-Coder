@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getCartService, deleteFromCartService, getCartsService,createCartService, updateProductQuantityService, clearCartService, addToCartService, updateCartService, purchaseService } from "../services/carts.service.js";
-import TicketDTO from "../services/ticket.service.js";
+import TicketDTO from "../services/DTO/ticket.service.js";
 
 const router = Router();
 
@@ -9,6 +9,7 @@ router.get("/:id", async (req, res) => {
     const id = req.params.id;
     const bole = true;
     const carritoandUser = await getCartService(user, id, bole);
+    console.log(carritoandUser.carritofinal)
     res.render('cart',{carritoandUser});
 });
 

@@ -67,6 +67,7 @@ socketServer.on("connection", (socket) => {
     mensajes.push(data);
     socketServer.emit("imprimir", mensajes);
   });
+
 });
 
 

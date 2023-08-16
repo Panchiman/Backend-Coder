@@ -3,7 +3,7 @@ import CartManager from "../daos/mongodb/classes/cartManager.class.js";
 import TicketManager from "../daos/mongodb/classes/ticketManager.class.js";
 import UserManager from "../daos/mongodb/classes/userManager.class.js";
 import { substractToProductStock } from "./products.service.js";
-import TicketDTO from "./ticket.service.js";
+import TicketDTO from "./DTO/ticket.service.js";
 
 const cartManager = new CartManager();
 const userManager = new UserManager();

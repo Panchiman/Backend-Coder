@@ -1,0 +1,12 @@
+<div>
+    {{#each chats}}
+    <div>
+        <p>{{this.user}}:  &nbsp; </p> <p>{{this.message}} &nbsp; </p> <p>fecha: {{this.message_datetime}} </p>
+        <hr>
+    </div>
+    <br/>
+    {{/each}}
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>
