@@ -1,10 +1,13 @@
 
 import CartManager from "../daos/mongodb/classes/cartManager.class.js";
+import TicketManager from "../daos/mongodb/classes/ticketManager.class.js";
 import UserManager from "../daos/mongodb/classes/userManager.class.js";
 import { substractToProductStock } from "./products.service.js";
+import TicketDTO from "./ticket.service.js";
 
 const cartManager = new CartManager();
 const userManager = new UserManager();
+const ticketManager = new TicketManager();
 
 export const getCartService = async (user, id, bole) => {
     const cart = await cartManager.getCartById(id,bole);
@@ -94,10 +97,12 @@ export const purchaseService = async (id, email) =>{
             cart.products = carritoLista
         }
         await cart.save();
-        
-        return {price: price, products:productos}
+
+        const ticket = new TicketDTO(productos,price,email)
+        ticketManager.addTicket(ticket)
+        return ticket
     }
     else{
-        return null;
+        return {error: "error con la operacion"};
     }
 }
