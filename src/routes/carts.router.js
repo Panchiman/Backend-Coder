@@ -56,17 +56,9 @@ router.put("/:cid/products/:pid", async (req, res) => {
 })
 
 router.put("/:cid/purchase", async (req, res) => {
-    console.log("sesion email")
-    console.log(req.user.email)
     const ticket = await purchaseService(req.params.cid, req.user.email)
-    if (!ticket){
-        res.send({error: "Wrong cart!"})
-    }
-    else{
-        const ticketFinal = new TicketDTO(ticket.products,ticket.price,req.user.email)
-        res.send(ticketFinal)
-
-    }
+    res.send(ticket)
+    
 })
 
 export default router;

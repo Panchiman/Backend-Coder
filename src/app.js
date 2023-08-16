@@ -1,7 +1,7 @@
 import express from 'express';
 import routerProducts from './routes/products.router.js';
 import routerCart from './routes/carts.router.js';
-import routerRealTimeProducts from './routes/realTimeProducts.router.js';
+import routerChat from './routes/chat.router.js';
 import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import ProductManager from './daos/mongodb/classes/productManager.class.js';
@@ -50,6 +50,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use('/products', routerProducts)
 app.use('/carts/', routerCart)
+app.use('/chat', routerChat)
 app.use('/', routerAuth)
 app.use('/api/sessions', routerSessions)
 
@@ -57,6 +58,16 @@ app.use('/api/sessions', routerSessions)
 const expressServer = app.listen(config.port, () => console.log("Listening on port " + config.port + "..."));
 const socketServer = new Server(expressServer);
 
+const mensajes = [];
+socketServer.on("connection", (socket) => {
+  console.log("connected " + socket.id);
+ 
+  socket.on("message", (data) => {
+    console.log(data)
+    mensajes.push(data);
+    socketServer.emit("imprimir", mensajes);
+  });
+});
 
 
 app.use(function (req, res, next) {
@@ -68,4 +79,4 @@ app.use(function (req, res, next) {
 
 
 
-app.use('/realtimeproducts/', routerRealTimeProducts)
+//app.use('/realtimeproducts/', routerRealTimeProducts)
