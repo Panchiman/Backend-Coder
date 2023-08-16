@@ -36,22 +36,37 @@ router.get('/:pid', async (req, res) => {
 
 
 router.post("/", async (req, res) => {
-    const product = req.body;
-    addProductService(product);
-    res.send({ status: "success" });
+    if(req.session.user.role == "admin"){
+        const product = req.body;
+        addProductService(product);
+        res.send({ status: "success" });
+    }
+    else{
+        res.send({error: "acceso denegado"})
+    }
 });
 
 router.put("/:pid", (req, res) => {
-    const productId = req.params.pid;
-    const product = req.body;
-    updateProductService(productId, product);
-    res.send({ status: "success" });
+    if(req.session.user.role == "admin"){
+        const productId = req.params.pid;
+        const product = req.body;
+        updateProductService(productId, product);
+        res.send({ status: "success" });
+    }
+    else{
+        res.send({error: "acceso denegado"})
+    }
 })
 
 router.delete("/:pid", (req, res) => {
-    const productId = req.params.pid;
-    deleteProductService(productId);
-    res.send({ status: "success" });
+    if(req.session.user.role == "admin"){
+        const productId = req.params.pid;
+        deleteProductService(productId);
+        res.send({ status: "success" });
+    }
+    else{
+        res.send({error: "acceso denegado"})
+    }
 })
 
 

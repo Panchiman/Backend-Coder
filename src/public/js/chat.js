@@ -21,6 +21,7 @@ chatbox.addEventListener("keyup", async (evt) => {
         email:user_email,
         message:chatbox.value,
     }
+    chatbox.value == "";
     fetch('/chat',{
         method:'POST',
         body:JSON.stringify(message),
@@ -28,7 +29,6 @@ chatbox.addEventListener("keyup", async (evt) => {
             'Content-Type':'application/json'
         }
     })
-    chatbox.value == "";
     }
   });
   
