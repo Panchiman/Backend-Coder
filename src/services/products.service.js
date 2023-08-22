@@ -1,6 +1,7 @@
 
 import ProductManager from '../daos/mongodb/classes/productManager.class.js';
 import config from '../config/config.js';
+import { addProductController } from '../controllers/products.controller.js';
 
 const productManager = new ProductManager();
 
@@ -49,6 +50,7 @@ export const updateProductService = async (productId, product) => {
 
 }
 export const addProductService = async (product) => {
+    await addProductController(product)
     productManager.addProduct(product);
 }
 
