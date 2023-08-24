@@ -4,6 +4,8 @@ import TicketManager from "../daos/mongodb/classes/ticketManager.class.js";
 import UserManager from "../daos/mongodb/classes/userManager.class.js";
 import { substractToProductStock } from "./products.service.js";
 import TicketDTO from "./DTO/ticket.service.js";
+import CustomError from "./DTO/customError.service.js";
+import { addCartByIdController, addToCartController } from "../controllers/carts.controller.js";
 
 const cartManager = new CartManager();
 const userManager = new UserManager();
@@ -11,9 +13,7 @@ const ticketManager = new TicketManager();
 
 export const getCartService = async (user, id, bole) => {
     const cart = await cartManager.getCartById(id,bole);
-    if (!cart) {
-        throw new Error ("Cart not found");
-    }
+    await addCartByIdController(cart)
     const carrito = cart.products;
     let carritofinal = [];
     function listaCarrito (){
@@ -46,6 +46,7 @@ export const getCartsService = async () => {
 }
 
 export const addToCartService = async (cartId, productId) => {
+    await addToCartController(cartId, productId)
     cartManager.addToCart(cartId, productId);
 }
 export const clearCartService = async (cartId) => {

@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import { cartModel } from "../models/carts.model.js";
 import ProductManager from "./productManager.class.js";
 import config from "../../../config/config.js";
+import { ErrorEnum } from "../../../services/ENUMS/error.enum.js";
+import CustomError from "../../../services/DTO/customError.service.js";
 
 
 export default class CartManager {
@@ -35,39 +37,52 @@ export default class CartManager {
     }
 
     async getCartById (idCart, len = false) {
-        try{
             if (len){
-                const result1 = await cartModel
-                .findOne({ _id: idCart }).lean()
-                .populate("products.product");
-                return result1;
+                try {
+                    const result1 = await cartModel
+                    .findOne({ _id: idCart }).lean()
+                    .populate("products.product");
+                    console.log("hola")
+                    console.log(result1)
+                    return result1;
+                    
+                } catch (error) {
+                    return null
+                }
             }
             else{
-                const result2 = await cartModel
-                .findOne({ _id: idCart })
-                .populate("products.product");
-                return result2;
+                try {
+                    const result2 = await cartModel
+                    .findOne({ _id: idCart })
+                    .populate("products.product");
+                    console.log(result2)
+                    return result2;
+                    
+                } catch (error) {
+                    return null
+                }
             }
-        }
-        catch (error) {
-            console.error(error);
-            return null;
-        }
+        
     }
     
     async addToCart (idCart, idProduct){
         try {
             const cart = await this.getCartById(idCart);
+            console.log("cart")
+            if (!cart){
+                console.log("no hay cart")
+            }
             const index =  cart.products.findIndex((item) => item.product._id == idProduct)
             const producto = await this.productManager.getProductById(idProduct);
-            console.log(producto)
+            if (producto == null){
+                console.log("no hay producto")
+            }
             if (index == -1){
                 cart.products.push({ product: producto, amount: 1 });
             }
             else{
                 cart.products.splice(index,1,{ product: producto, amount: cart.products[index].amount + 1 })
             }
-            console.log(index)
             await cart.save();
             console.log("añadido al carrito")
             return;

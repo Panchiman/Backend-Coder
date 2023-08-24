@@ -3,6 +3,7 @@ import {productsModel} from '../daos/mongodb/models/product.models.js';
 import {getProductsService, getProductByIdService, addProductService, updateProductService, deleteProductService} from '../services/products.service.js';
 
 import passport from "passport";
+import { addProductController } from '../controllers/products.controller.js';
 
 const router = Router();
 
@@ -35,11 +36,15 @@ router.get('/:pid', async (req, res) => {
 });
 
 
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
     if(req.session.user.role == "admin"){
-        const product = req.body;
-        addProductService(product);
-        res.send({ status: "success" });
+        try {
+            const product = req.body;
+            await addProductService(product)
+            
+        } catch (error) {
+            return next(error)
+        }
     }
     else{
         res.send({error: "acceso denegado"})

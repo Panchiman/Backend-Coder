@@ -4,13 +4,18 @@ import TicketDTO from "../services/DTO/ticket.service.js";
 
 const router = Router();
 
-router.get("/:id", async (req, res) => {
-    let user = req.session.user;
-    const id = req.params.id;
-    const bole = true;
-    const carritoandUser = await getCartService(user, id, bole);
-    console.log(carritoandUser.carritofinal)
-    res.render('cart',{carritoandUser});
+router.get("/:id", async (req, res, next) => {
+    try {
+        let user = req.session.user;
+        const id = req.params.id;
+        const bole = true;
+        const carritoandUser = await getCartService(user, id, bole);
+        console.log(carritoandUser.carritofinal)
+        res.render('cart',{carritoandUser});
+        
+    } catch (error) {
+        return next(error)
+    }
 });
 
 router.get("/", (req, res) => {
@@ -23,11 +28,15 @@ router.post("/", (req, res) => {
     res.send({ status: "success" });
 });
 
-router.post("/:cid/products/:pid", async (req, res) => {
-    const cartId = req.params.cid;
-    const productId = req.params.pid;
-    await addToCartService(cartId, productId);
-    res.send({ status: "success" });
+router.post("/:cid/products/:pid", async (req, res,next) => {
+    try {
+        const cartId = req.params.cid;
+        const productId = req.params.pid;
+        await addToCartService(cartId, productId);
+        res.send("sucess")
+    } catch (error) {
+        return next(error)
+    }
 });
 
 router.delete("/:cid/products/:pid", async (req, res) => {
