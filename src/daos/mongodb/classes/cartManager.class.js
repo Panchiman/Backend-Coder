@@ -15,11 +15,10 @@ export default class CartManager {
     async createCart() {
         try{
         const result = await cartModel.create({ products: [] });
-        console.log(result._id)
         return result._id;
         }
         catch (error) {
-            console.error(error);
+            
             return null;
         }
     
@@ -27,11 +26,10 @@ export default class CartManager {
     async getCarts (){
         try{
             const result = await cartModel.find().lean();
-            console.log(result)
             return result;
         }
         catch (error) {
-            console.error(error);
+            
             return null;
         }
     }
@@ -42,8 +40,6 @@ export default class CartManager {
                     const result1 = await cartModel
                     .findOne({ _id: idCart }).lean()
                     .populate("products.product");
-                    console.log("hola")
-                    console.log(result1)
                     return result1;
                     
                 } catch (error) {
@@ -55,7 +51,6 @@ export default class CartManager {
                     const result2 = await cartModel
                     .findOne({ _id: idCart })
                     .populate("products.product");
-                    console.log(result2)
                     return result2;
                     
                 } catch (error) {
@@ -68,15 +63,8 @@ export default class CartManager {
     async addToCart (idCart, idProduct){
         try {
             const cart = await this.getCartById(idCart);
-            console.log("cart")
-            if (!cart){
-                console.log("no hay cart")
-            }
             const index =  cart.products.findIndex((item) => item.product._id == idProduct)
             const producto = await this.productManager.getProductById(idProduct);
-            if (producto == null){
-                console.log("no hay producto")
-            }
             if (index == -1){
                 cart.products.push({ product: producto, amount: 1 });
             }
@@ -84,37 +72,34 @@ export default class CartManager {
                 cart.products.splice(index,1,{ product: producto, amount: cart.products[index].amount + 1 })
             }
             await cart.save();
-            console.log("añadido al carrito")
             return;
         }
         catch (error) {
-            console.error(error);
+            
             return error;
         }
     }
     async deleteFromCart(idCart, idProduct) {
         try {
             const cart = await this.getCartById(idCart);
-            console.log(cart)
             cart.products.pull(idProduct);
             await cart.save();
             return true;
         }
         catch (error) {
-            console.error(error);
+            
             return null;
         }
     }
     async clearCart(idCart) {
         try{
             const cart = await this.getCartById(idCart);
-            console.log(cart)
             cart.products = [];
             await cart.save();
             return;
         }
         catch (error) {
-            console.error(error);
+            
             return null;
         }
     }
@@ -128,20 +113,19 @@ export default class CartManager {
             return;
         }
         catch (error) {
-            console.error(error);
+            
             return null;
         }
     }
     async updateProductQuantity(idCart, idProduct, products) {
         try {
             const cart = await this.getCartById(idCart);
-            console.log(cart.products.id())
             //const findProduct = result.products.find(product => product.id == idProduct);
             //console.log(findProduct)
             return;
         }
         catch (error) {
-            console.error(error);
+            
             return null;
         }
     }

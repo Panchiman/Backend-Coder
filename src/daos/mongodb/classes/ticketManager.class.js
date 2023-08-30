@@ -12,7 +12,6 @@ export default class TicketManager {
             return result;
             } 
             catch (error) {
-            console.error(error);
             return error;
         }
     }

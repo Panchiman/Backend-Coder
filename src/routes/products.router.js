@@ -24,7 +24,7 @@ router.get('/',async (req, res) => {
     let filter = req.query.filter;
     let filterVal = req.query.filterVal;
     const productsandUser = await getProductsService(user,limit, page, sort, filter, filterVal)
-    console.log(productsandUser)
+    req.logger.debug(productsandUser)
     res.render('allproducts', {productsandUser})
 })  
 

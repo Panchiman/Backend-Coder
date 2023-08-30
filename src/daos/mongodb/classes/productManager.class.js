@@ -14,7 +14,6 @@ export default class ProductManager {
                 return result;
                 } 
                 catch (error) {
-                console.error(error);
                 return error;
             }
         }
@@ -39,7 +38,6 @@ async getProducts(limit = 10, page = 1, sort = 0, filter = null, filterVal = nul
         }
     }
     catch (error) {
-        console.error(error);
         return error;
     }
 }
@@ -49,7 +47,6 @@ async getProducts(limit = 10, page = 1, sort = 0, filter = null, filterVal = nul
             return result;
         }
         catch (error) {
-            console.error(error);
             return error;
         }
     }
@@ -63,7 +60,6 @@ async getProducts(limit = 10, page = 1, sort = 0, filter = null, filterVal = nul
             return result;
         } 
         catch (error) {
-            console.error(error);
             return error;
         }
     }
@@ -76,7 +72,6 @@ async getProducts(limit = 10, page = 1, sort = 0, filter = null, filterVal = nul
             return result;
         }
         catch (error) {
-            console.error(error);
             return error;
         }
     }

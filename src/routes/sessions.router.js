@@ -9,7 +9,7 @@ router.post("/register", passport.authenticate('register', {failureRedirect:'/fa
 })
 
 router.get("/failregister", (req, res) => {
-    console.log("Failed to register")
+    req.logger.error("Failed to register")
     res.send({error:"Failed to register"})
 })
 

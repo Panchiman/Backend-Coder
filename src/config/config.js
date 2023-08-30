@@ -11,4 +11,5 @@ export default {
     mongoSecret: process.env.MONGO_SECRET,
     githubClientId: process.env.GITHUB_CLIENT_ID,
     githubSecret: process.env.GITHUB_SECRET,
+    ENVIRONMENT: process.env.ENVIRONMENT,
 }

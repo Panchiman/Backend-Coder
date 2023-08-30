@@ -7,7 +7,6 @@ const productManager = new ProductManager();
 
 export const getProductsService = async (user,limit, page, sort, filter, filterVal) => {
     if (!user) throw new Error ("No user found")
-    //console.log(user)
     if (isNaN(limit)) {
         limit = 10;
     }
@@ -56,16 +55,13 @@ export const addProductService = async (product) => {
 
 export const substractToProductStock = async (productId, amount) =>{
     const product = await productManager.getProductById(productId)
-    console.log (product.stock)
     if (!product){
         return {error:"Product don't exist"}
     }
     if (product.stock < amount){
-        console.log("retorno falso")
         return false
     }
     else{
-        console.log("retorno true")
         await productManager.updateProduct(productId, {stock: product.stock - amount})
         return true
     }

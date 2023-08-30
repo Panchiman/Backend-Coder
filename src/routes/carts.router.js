@@ -10,7 +10,7 @@ router.get("/:id", async (req, res, next) => {
         const id = req.params.id;
         const bole = true;
         const carritoandUser = await getCartService(user, id, bole);
-        console.log(carritoandUser.carritofinal)
+        req.logger.debug(carritoandUser.carritofinal)
         res.render('cart',{carritoandUser});
         
     } catch (error) {
@@ -39,16 +39,30 @@ router.post("/:cid/products/:pid", async (req, res,next) => {
     }
 });
 
-router.delete("/:cid/products/:pid", async (req, res) => {
-    const cartId = req.params.cid;
-    const productId = req.params.pid;
-    await deleteFromCartService(cartId, productId);
-    res.send({ status: "success" });
+router.delete("/:cid/products/:pid", async (req, res, next) => {
+    try {
+        const cartId = req.params.cid;
+        const productId = req.params.pid;
+        if (await deleteFromCartService(cartId, productId)){
+            req.logger.info("Borrado del carrito")
+            res.send({ status: "success" });
+        }
+        
+    } catch (error) {
+        req.logger.error(error)
+        return next(error)
+    }
 })
 router.delete("/:cid", async (req, res) => {
-    const cartId = req.params.cid;
-    await clearCartService(cartId);
-    res.send({ status: "success" });
+    try {
+        const cartId = req.params.cid;
+        await clearCartService(cartId);
+        res.send({ status: "success" });
+        
+    } catch (error) {
+        req.logger.error(error)
+        return next(error)
+    }
 })
 
 router.put("/:cid", async (req, res) => {

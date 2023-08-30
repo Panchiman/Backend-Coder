@@ -29,13 +29,14 @@ export const getCartService = async (user, id, bole) => {
         carritofinal,
         user
     }
-    console.log(carrito)
     return carritoandUser;
 }
 
 export const deleteFromCartService = async (cartId, productId) => {
-    const cart = await cartManager.deleteFromCart(cartId, productId);
-    if (!cart) {
+    if (cartManager.deleteFromCart(cartId, productId)){
+        return true
+    }
+    else{
         throw new Error ("Cart not found");
     }
 }
@@ -66,11 +67,6 @@ export const createCartService = async () => {
 
 export const purchaseService = async (id, email) =>{
     const user = await userManager.findUserByCart(id)
-    console.log("user")
-    console.log(user)
-    console.log("email")
-    console.log(email)
-    
     if (user.email == email){
         const cart = await cartManager.getCartById(id);
         let carrito = cart.products;

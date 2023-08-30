@@ -12,7 +12,6 @@ export default class ChatManager {
             return result;
             } 
             catch (error) {
-            console.error(error);
             return error;
         }
     }
@@ -22,7 +21,6 @@ export default class ChatManager {
             return result;
         }
         catch (error) {
-            console.error(error);
             return null;
         }
     }

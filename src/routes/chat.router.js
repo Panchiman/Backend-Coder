@@ -24,7 +24,7 @@ router.get('/logs', async (req, res) => {
         res.redirect('/')
     }
     const chats = await getChatsService()
-    console.log(chats)
+    req.logger.debug(JSON.stringify(chats))
     res.render('chatlog', {chats})
 })
 
