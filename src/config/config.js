@@ -12,4 +12,6 @@ export default {
     githubClientId: process.env.GITHUB_CLIENT_ID,
     githubSecret: process.env.GITHUB_SECRET,
     ENVIRONMENT: process.env.ENVIRONMENT,
+    nodemailUser: process.env.NODEMAIL_USER,
+    nodemailPass: process.env.NODEMAIL_PASS,
 }
