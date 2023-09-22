@@ -1,0 +1,179 @@
+paths:
+  /carts/{id}:
+    get:
+      summary: "Obtener un carrito por ID"
+      tags:
+        - carts
+      parameters:
+        - name: id
+          in: path
+          description: "ID del carrito a consultar"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "Carrito encontrado"
+        404:
+          description: "Carrito no encontrado"
+
+  /carts:
+    get:
+      summary: "Obtener todos los carritos"
+      tags:
+        - carts
+      responses:
+        200:
+          description: "Lista de carritos"
+        404:
+          description: "No se encontraron carritos"
+
+    post:
+      summary: "Crear un nuevo carrito"
+      tags:
+        - carts
+      responses:
+        201:
+          description: "Carrito creado exitosamente"
+        400:
+          description: "Solicitud inválida"
+
+  /carts/{cid}/products/{pid}:
+    post:
+      summary: "Agregar un producto a un carrito"
+      tags:
+        - carts
+      parameters:
+        - name: cid
+          in: path
+          description: "ID del carrito al que se agregará el producto"
+          required: true
+          type: string
+        - name: pid
+          in: path
+          description: "ID del producto a agregar al carrito"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "Producto agregado exitosamente al carrito"
+        400:
+          description: "Solicitud inválida"
+
+    delete:
+      summary: "Eliminar un producto de un carrito"
+      tags:
+        - carts
+      parameters:
+        - name: cid
+          in: path
+          description: "ID del carrito del que se eliminará el producto"
+          required: true
+          type: string
+        - name: pid
+          in: path
+          description: "ID del producto a eliminar del carrito"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "Producto eliminado exitosamente del carrito"
+
+  /carts/{cid}:
+    delete:
+      summary: "Vaciar un carrito"
+      tags:
+        - carts
+      parameters:
+        - name: cid
+          in: path
+          description: "ID del carrito a vaciar"
+          required: true
+          schema:
+            $type: String
+      responses:
+        200:
+          description: "Carrito vaciado exitosamente"
+        404:
+          description: "Carrito no encontrado"
+
+    put:
+      summary: "Actualizar un carrito"
+      tags:
+        - carts
+      parameters:
+        - name: cid
+          in: path
+          description: "ID del carrito a actualizar"
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: "Nuevos productos del carrito"
+          required: true
+      requestBody:
+          required: false
+          content:
+            application/json:
+              schema:
+                $ref: '#components/requestBodies/cartBody'
+      responses:
+        200:
+          description: "Carrito actualizado exitosamente"
+
+  /carts/{cid}/purchase:
+    put:
+      summary: "Realizar una compra desde un carrito"
+      tags:
+        - carts
+      parameters:
+        - name: cid
+          in: path
+          description: "ID del carrito desde el cual se realizará la compra"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "Compra realizada exitosamente"
+        404:
+          description: "Carrito no encontrado"
+
+
+components:
+  schemas:
+    carts:
+      type: "object"
+      properties:
+        products:
+          type: "array"
+          description: "Array de productos en el carrito cada uno con su respectivo Amount (cantidad)"
+    tickets:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          description: "Código del ticket"
+        purchase_datetime:
+          type: "string"
+          format: "date-time"
+          description: "Fecha y hora de la compra"
+        products:
+          type: "array"
+          items:
+            $ref: "#/definitions/Product"
+          description: "Lista de productos en el ticket"
+        amount:
+          type: "number"
+          description: "Monto total del ticket"
+        purchaser:
+          type: "string"
+          description: "Nombre del comprador"
+  requestBodies:
+    cartBody:
+      type: object
+      items:
+        type: object
+        properties:
+          productId:
+            type: string
+          quantity:
+            type: integer

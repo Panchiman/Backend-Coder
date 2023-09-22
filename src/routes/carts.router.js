@@ -33,7 +33,7 @@ router.post("/:cid/products/:pid", async (req, res,next) => {
         const cartId = req.params.cid;
         const productId = req.params.pid;
         await addToCartService(cartId, productId);
-        res.send("sucess")
+        res.send({ status: "success" });
     } catch (error) {
         return next(error)
     }
@@ -72,12 +72,12 @@ router.put("/:cid", async (req, res) => {
     res.send({ status: "success" });
 })
 
-router.put("/:cid/products/:pid", async (req, res) => {
-    const products = req.body;
-    const cartId = req.params.cid;
-    const productId = req.params.pid;
-    await updateProductQuantityService(cartId, productId, products);
-})
+// router.put("/:cid/products/:pid", async (req, res) => {
+//     const products = req.body;
+//     const cartId = req.params.cid;
+//     const productId = req.params.pid;
+//     await updateProductQuantityService(cartId, productId, products);
+// })
 
 router.put("/:cid/purchase", async (req, res) => {
     const ticket = await purchaseService(req.params.cid, req.user.email)

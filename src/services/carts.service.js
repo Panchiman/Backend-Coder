@@ -102,28 +102,28 @@ export const purchaseService = async (id, email) =>{
         function generarCodigoHTML(productos) {
             // Comprobamos si el array de productos está vacío
             if (productos.length === 0) {
-              return '<p>No hay productos disponibles.</p>';
+                return '<p>No hay productos disponibles.</p>';
             }
-          
+        
             // Inicializamos una cadena de HTML vacía
             let codigoHTML = '<ul>';
-          
+        
             // Iteramos a través de cada producto en el array
             productos.forEach(function (producto) {
               // Creamos un elemento <li> para cada producto
-              codigoHTML += '<li>';
-              codigoHTML += '<b>Producto:</b> ' + producto.product + '<br>';
-              codigoHTML += '<b>Precio:</b> $' + producto.price.toFixed(2) + '<br>';
-              codigoHTML += '<b>Cantidad:</b> ' + producto.amount + '<br>';
-              codigoHTML += '<hr>'
-              codigoHTML += '</li>';
+                codigoHTML += '<li>';
+                codigoHTML += '<b>Producto:</b> ' + producto.product + '<br>';
+                codigoHTML += '<b>Precio:</b> $' + producto.price.toFixed(2) + '<br>';
+                codigoHTML += '<b>Cantidad:</b> ' + producto.amount + '<br>';
+                codigoHTML += '<hr>'
+                codigoHTML += '</li>';
             });
-          
+        
             // Cerramos la lista desordenada (<ul>)
             codigoHTML += '</ul>';
-          
+        
             return codigoHTML;
-          }
+            }
         const html = '<h1>Ticket de compra:</h1><br>' + '<h3>Productos: </h3><br>' + generarCodigoHTML(productos) + '<h3>Precio total: $'+ price +'</h3>'+'<br>'
         try {
             const nodemail = await mail.send(email, "Ticket de compra", html)

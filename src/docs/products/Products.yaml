@@ -1,0 +1,140 @@
+paths:
+  /products:
+    get:
+      summary: Obtiene la vista de todos los productos
+      tags:
+        - products
+      responses:
+        "200":
+          description: Los productos fueron obtenidos satisfactoriamente
+  /products/{pid}:
+    get:
+      summary: "Obtener un producto por ID"
+      tags:
+        - products
+      parameters:
+        - name: pid
+          in: path
+          description: "ID del producto a consultar"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "Producto encontrado"
+        404:
+          description: "Producto no encontrado"
+    
+    put:
+      summary: "Actualizar un producto por ID"
+      tags:
+        - products
+      parameters:
+        - name: pid
+          in: path
+          description: "ID del producto a actualizar"
+          required: true
+          type: string
+      requestBody:
+          required: false
+          content:
+            application/json:
+              schema:
+                $ref: '#components/requestBodies/productBody'
+      responses:
+        200:
+          description: "Producto actualizado exitosamente"
+        400:
+          description: "Solicitud inválida"
+        404:
+          description: "Producto no encontrado"
+
+    delete:
+      summary: "Eliminar un producto por ID"
+      tags:
+        - products
+      parameters:
+        - name: pid
+          in: path
+          description: "ID del producto a eliminar"
+          required: true
+          type: string
+      responses:
+        204:
+          description: "Producto eliminado exitosamente"
+        404:
+          description: "Producto no encontrado"
+  
+components:
+  schemas:
+    products:
+      type: "object"
+      properties:
+        _id:
+          type: ObjectId
+          description: id autogenerado por MongoDB
+        title:
+          type: "string"
+          description: "Título del producto"
+          example: "Licensed Steel Car"
+        description:
+          type: "string"
+          description: "Descripción del producto"
+          example: "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals"
+        price:
+          type: "number"
+          description: "Precio del producto"
+          example: 19.99
+        category:
+          type: "string"
+          description: "Categoría del producto"
+          example: "Electrónica"
+        thumbnail:
+          type: "string"
+          description: "URL de la imagen del producto"
+          example: "https://example.com/imagen.jpg"
+        status:
+          type: "boolean"
+          description: "Estado del producto"
+          example: true
+        code:
+          type: "string"
+          description: "Código del producto"
+          example: "oHlSZovWNO"
+        stock:
+          type: "number"
+          description: "Cantidad en stock del producto"
+          example: 50
+  requestBodies:
+    productBody:
+        title:
+          type: "string"
+          description: "Título del producto"
+          example: "Licensed Steel Car"
+        description:
+          type: "string"
+          description: "Descripción del producto"
+          example: "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals"
+        price:
+          type: "number"
+          description: "Precio del producto"
+          example: 19.99
+        category:
+          type: "string"
+          description: "Categoría del producto"
+          example: "Electrónica"
+        thumbnail:
+          type: "string"
+          description: "URL de la imagen del producto"
+          example: "https://example.com/imagen.jpg"
+        status:
+          type: "boolean"
+          description: "Estado del producto"
+          example: true
+        code:
+          type: "string"
+          description: "Código del producto"
+          example: "oHlSZovWNO"
+        stock:
+          type: "number"
+          description: "Cantidad en stock del producto"
+          example: 50

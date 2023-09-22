@@ -26,7 +26,7 @@ router.get('/',async (req, res) => {
     const productsandUser = await getProductsService(user,limit, page, sort, filter, filterVal)
     req.logger.debug(productsandUser)
     res.render('allproducts', {productsandUser})
-})  
+})
 
 
 router.get('/:pid', async (req, res) => {

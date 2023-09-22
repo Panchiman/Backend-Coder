@@ -20,6 +20,8 @@ import {initializePassport} from './config/passsport.config.js';
 import config from './config/config.js';
 import { errorMiddleware } from './middlewares/error.middleware.js';
 import { addLogger } from './config/logger.config.js';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUiExpress from "swagger-ui-express"
 
 const app = express();
 app.use(addLogger)
@@ -45,8 +47,20 @@ app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
 
+const swaggerOptions = {
+  definition:{
+    openapi:'3.0.1',
+    info:{
+      title:"Proyecto backend Angel Saldias",
+      description:"Ecommerse para el curso de Backend en coderhouse"
+    }
+  },
+  apis: [`${__dirname}/docs/**/*.yaml`]
+}
 
+const specs = swaggerJSDoc(swaggerOptions)
 
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
