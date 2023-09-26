@@ -18,9 +18,9 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
-router.get("/", (req, res) => {
-    const carts = getCartsService();
-    res.send(carts);
+router.get("/", async (req, res) => {
+    const carts = await getCartsService();
+    res.send({status:"success", payload: carts});
 });
 
 router.post("/", (req, res) => {
@@ -33,10 +33,10 @@ router.post("/:cid/products/:pid", async (req, res,next) => {
         const cartId = req.params.cid;
         const productId = req.params.pid;
         await addToCartService(cartId, productId);
-        res.send({ status: "success" });
     } catch (error) {
         return next(error)
     }
+    res.send({ status: "success" });
 });
 
 router.delete("/:cid/products/:pid", async (req, res, next) => {

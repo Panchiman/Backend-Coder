@@ -49,6 +49,7 @@ router.post("/", async (req, res, next) => {
     else{
         res.send({error: "acceso denegado"})
     }
+    res.send({status:"success"})
 });
 
 router.put("/:pid", (req, res) => {

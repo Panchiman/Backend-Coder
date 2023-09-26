@@ -25,3 +25,5 @@ error: Error sin definir
 error: product creation error - Cause: Uno de los siguientes campos obligatorios esta ausente: title,description,price,category,status,code,stock
 error: product creation error - Cause: Uno de los siguientes campos obligatorios esta ausente: title,description,price,category,status,code,stock
 error: product creation error - Cause: Uno de los siguientes campos obligatorios esta ausente: title,description,price,category,status,code,stock
+error: product creation error - Cause: Uno de los siguientes campos obligatorios esta ausente: title,description,price,category,status,code,stock
+error: error al obtener el carrito - Cause: El carrito no se encuentra en nuestra base de datos
