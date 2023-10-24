@@ -37,7 +37,17 @@ router.get('/:pid', async (req, res) => {
 
 
 router.post("/", async (req, res, next) => {
-    if(req.session.user.role == "admin"){
+    if (req.session.user.role == "premium"){
+        try {
+            const product = req.body;
+            const creadorId = req.session.user._id;
+            await addProductService(product, "premium", creadorId)
+        } catch (error) {
+            return next(error)
+        }
+
+    }
+    else if(req.session.user.role == "admin"){
         try {
             const product = req.body;
             await addProductService(product)

@@ -22,6 +22,7 @@ import { errorMiddleware } from './middlewares/error.middleware.js';
 import { addLogger } from './config/logger.config.js';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUiExpress from "swagger-ui-express"
+import routerUsers from "./routes/users.router.js"
 
 const app = express();
 app.use(addLogger)
@@ -71,6 +72,7 @@ app.use('/', routerAuth)
 app.use('/mockingproducts', routerMockingproducts)
 app.use('/api/sessions', routerSessions)
 app.use('/logger/', routerLogger)
+app.use('/api/users', routerUsers)
 app.use(errorMiddleware)
 
 

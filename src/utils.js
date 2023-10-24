@@ -19,7 +19,10 @@ export const generateProduct = () => {
       code: faker.string.alphanumeric(10),
       price: Number(faker.commerce.price({ min: 1 })),
       category: faker.commerce.department(),
-      status: true
+      status: true,
+      creatorRole: "Admin",
+      creatorId: "Admin",
+
   };
 };
 

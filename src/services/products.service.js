@@ -2,6 +2,7 @@
 import ProductManager from '../daos/mongodb/classes/productManager.class.js';
 import config from '../config/config.js';
 import { addProductController } from '../controllers/products.controller.js';
+import ProductDTO from './DTO/productDTO.service.js';
 
 const productManager = new ProductManager();
 
@@ -48,9 +49,10 @@ export const updateProductService = async (productId, product) => {
     productManager.updateProduct(productId, product);
 
 }
-export const addProductService = async (product) => {
+export const addProductService = async (product, role = "Admin", creatorId = "Admin") => {
     await addProductController(product)
-    productManager.addProduct(product);
+    const productDTO = new ProductDTO(product, role, creatorId)
+    productManager.addProduct(productDTO);
 }
 
 export const substractToProductStock = async (productId, amount) =>{
