@@ -27,6 +27,6 @@ form.addEventListener('submit',e=>{
         timer: 1500
     })
     setTimeout(() => {
-        window.location.replace('http://localhost:8080/');
+        window.location.replace('/');
     }, "1500");
 })

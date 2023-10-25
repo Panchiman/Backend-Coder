@@ -6,7 +6,7 @@
     <h1>Productos:</h1>
     {{#each productsandUser.products.docs}}
     <div>
-        <h4><a href="http://localhost:8080/products/{{this.id}}">{{this.title}}</a> &nbsp; </h4>
+        <h4><a href="/products/{{this.id}}">{{this.title}}</a> &nbsp; </h4>
         <h5>Precio: ${{this.price}}</h5>
         <hr>
     </div>

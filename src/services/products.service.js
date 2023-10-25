@@ -22,8 +22,8 @@ export const getProductsService = async (user,limit, page, sort, filter, filterV
     }
     
     let products = await productManager.getProducts(limit, page, sort, filter, filterVal);
-    products.prevLink = products.hasPrevPage?`http://localhost:${config.PORT}/products/?page=${products.prevPage}&limit=${limit}&sort=${sort}&filter=${filter}&filterVal=${filterVal}`:'';
-    products.nextLink = products.hasNextPage?`http://localhost:${config.PORT}/products/?page=${products.nextPage}&limit=${limit}&sort=${sort}&filter=${filter}&filterVal=${filterVal}`:'';
+    products.prevLink = products.hasPrevPage?`/products/?page=${products.prevPage}&limit=${limit}&sort=${sort}&filter=${filter}&filterVal=${filterVal}`:'';
+    products.nextLink = products.hasNextPage?`/products/?page=${products.nextPage}&limit=${limit}&sort=${sort}&filter=${filter}&filterVal=${filterVal}`:'';
     
     if (page<=0 || page>products.totalPages){
         throw new Error ("Page not found") ;

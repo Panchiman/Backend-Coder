@@ -1,7 +1,7 @@
 
 function eliminarUsuario(userId){
     console.log("eliminado usuario:" + userId)
-    fetch(`http://localhost:8080/api/users/${userId}`,{
+    fetch(`/api/users/${userId}`,{
         method:'DELETE',
     })
     Swal.fire({
@@ -56,8 +56,7 @@ const { value: result } = await Swal.fire({
 
 if (result) {
     console.log(userId)
-    console.log(`http://localhost:8080/api/users/${userId}`)
-    fetch(`http://localhost:8080/api/users/${userId}`,{
+    fetch(`/api/users/${userId}`,{
         method:'PUT',
         headers: {
             'Accept': 'application/json',

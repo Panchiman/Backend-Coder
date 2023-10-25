@@ -15,7 +15,7 @@ export const initializePassport = () => {
     passport.use('github', new githubStrategy({
         clientID: config.githubClientId,
         clientSecret: config.githubSecret,
-        callbackURL: "http://localhost:8080/api/sessions/githubcallback"
+        callbackURL: "/api/sessions/githubcallback"
     }, async (accessToken, refreshToken, profile, done) => {
         let user = await userModel.findOne({ email: profile.profileUrl });
         if (!user) {

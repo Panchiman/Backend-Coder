@@ -1,5 +1,5 @@
 function addToCartButton (idCart, idProduct){
-    fetch(`http://localhost:8080/carts/${idCart}/products/${idProduct}`,{
+    fetch(`/carts/${idCart}/products/${idProduct}`,{
         method:'POST',
     })
 };
@@ -22,7 +22,7 @@ const botonAtras = document.getElementById('botonAtras');
 
 function botonRemoveFromCart(idCart, idProduct){
     console.log("eliminado product:" + idProduct + "de carrito" + idCart)
-    fetch(`http://localhost:8080/carts/${idCart}/products/${idProduct}`,{
+    fetch(`/carts/${idCart}/products/${idProduct}`,{
         method:'DELETE',
     })
     Swal.fire({
@@ -37,7 +37,7 @@ function botonRemoveFromCart(idCart, idProduct){
 
 function finalizarcompra(idCart){
     console.log("compra finalizada del carrito: " + idCart)
-    fetch(`http://localhost:8080/carts/${idCart}/purchase`,{
+    fetch(`/carts/${idCart}/purchase`,{
         method:'PUT',
         headers: {
             'Accept': 'application/json',
@@ -51,7 +51,7 @@ function finalizarcompra(idCart){
         }
         })
         .then(() => {
-            window.location.replace("http://localhost:8080/products")
+            window.location.replace("/products")
             })
     Swal.fire({
         position: 'top-end',
