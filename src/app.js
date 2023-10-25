@@ -76,8 +76,6 @@ app.use('/api/users', routerUsers)
 app.use(errorMiddleware)
 
 
-
-
 const expressServer = app.listen(config.PORT, () => console.log("Listening on port " + config.PORT + "..."));
 
 const socketServer = new Server(expressServer);

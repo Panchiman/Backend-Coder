@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteUserService, getUserByIdService, getUsersService, updateUserService } from "../services/users.service.js";
+import { deleteUnusedUsers, deleteUserService, getUserByIdService, getUsersService, updateUserService } from "../services/users.service.js";
 const router = Router();
 
 
@@ -40,6 +40,16 @@ router.delete("/:uid", (req, res) => {
     if(req.session.user.role == "admin"){
         const userId = req.params.uid;
         deleteUserService(userId);
+        res.send({ status: "success" });
+    }
+    else{
+        res.send({error: "acceso denegado"})
+    }
+})
+
+router.delete("/", async (req, res) => {
+    if(req.session.user.role == "admin"){
+        deleteUnusedUsers();
         res.send({ status: "success" });
     }
     else{

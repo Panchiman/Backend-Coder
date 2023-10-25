@@ -4,6 +4,7 @@ import {getProductsService, getProductByIdService, addProductService, updateProd
 
 import passport from "passport";
 import { addProductController } from '../controllers/products.controller.js';
+import { updateUserService, updateUserServiceWithMail } from '../services/users.service.js';
 
 const router = Router();
 
@@ -16,7 +17,18 @@ export const roleAdminCheck = (req, res, next) => {
     }
 }
 
-router.get('/',async (req, res) => {
+const lastSessionRegister = (req, res, next) => {
+    const userSession = req.user
+    if (!userSession){
+        return res.redirect('/')
+    }
+    const user = {lastSession: new Date()}
+    console.log(user)
+    updateUserServiceWithMail(req.user.email,user)
+    next();
+};
+
+router.get('/', lastSessionRegister, async (req, res) => {
     let limit = Number(req.query.limit);
     let page = Number(req.query.page);
     let sort = Number(req.query.sort);
@@ -29,7 +41,7 @@ router.get('/',async (req, res) => {
 })
 
 
-router.get('/:pid', async (req, res) => {
+router.get('/:pid', lastSessionRegister, async (req, res) => {
     let user = req.session.user;
     const productoandUser = await getProductByIdService(req.params.pid, user);
     res.render('product',{productoandUser});

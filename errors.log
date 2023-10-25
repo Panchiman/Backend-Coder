@@ -66,3 +66,5 @@ error: error al agregar al carrito - Cause: Un dueño no puede comprar sus propi
 error: error al obtener el carrito - Cause: El carrito no se encuentra en nuestra base de datos
 error: error al agregar al carrito - Cause: Un dueño no puede comprar sus propios productos en la tienda
 error: error al agregar al carrito - Cause: Un dueño no puede comprar sus propios productos en la tienda
+error: Error sin definir
+error: Error sin definir

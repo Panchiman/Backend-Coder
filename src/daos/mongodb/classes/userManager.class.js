@@ -50,6 +50,19 @@ export default class UserManager {
         }
     }
 
+    async updateUserWithMail(email, updatedUser) {
+        try {
+            let result = await userModel.updateOne(
+                { email: email },
+                { $set: updatedUser }
+                );
+            return result;
+        } 
+        catch (error) {
+            return error;
+        }
+    }
+
     async deleteUser(id) {
         try {
             let result = await userModel.deleteOne(

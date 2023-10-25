@@ -24,7 +24,8 @@ export const initializePassport = () => {
             age: profile.age ? profile.age : 0,
             role: "user",
             password: "",
-            idCart: await cartManager.createCart()
+            idCart: await cartManager.createCart(),
+            lastSession: new Date()
             };
             console.log(profile._json);
             const result = await userModel.create(newUser);
@@ -55,7 +56,8 @@ passport.use('register', new LocalStrategy(
             age,
             password: createHash(password),
             role: "user",
-            idCart: await cartManager.createCart()
+            idCart: await cartManager.createCart(),
+            lastSession: new Date()
         }
         const result = await userModel.create(newUser);
         return done(null, result);

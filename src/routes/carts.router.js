@@ -1,10 +1,22 @@
 import { Router } from "express";
 import { getCartService, deleteFromCartService, getCartsService,createCartService, updateProductQuantityService, clearCartService, addToCartService, updateCartService, purchaseService, procesoCompraService } from "../services/carts.service.js";
 import TicketDTO from "../services/DTO/ticket.service.js";
+import { updateUserServiceWithMail } from "../services/users.service.js";
 
 const router = Router();
 
-router.get("/:id", async (req, res, next) => {
+const lastSessionRegister = (req, res, next) => {
+    const userSession = req.user
+    if (!userSession){
+        return res.redirect('/')
+    }
+    const user = {lastSession: new Date()}
+    console.log(user)
+    updateUserServiceWithMail(req.user.email,user)
+    next();
+};
+
+router.get("/:id", lastSessionRegister, async (req, res, next) => {
     try {
         let user = req.session.user;
         const id = req.params.id;
