@@ -54,8 +54,7 @@ async getProducts(limit = 10, page = 1, sort = 0, filter = null, filterVal = nul
     async deleteProduct(id) {
         try {
             let result = productsModel.deleteOne(
-                { _id: id },
-                { $set: updatedProduct }
+                { _id: id }
                 );
             return result;
         } 

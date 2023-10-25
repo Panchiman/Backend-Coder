@@ -21,7 +21,7 @@ export const generateProduct = () => {
       category: faker.commerce.department(),
       status: true,
       creatorRole: "Admin",
-      creatorId: "Admin",
+      creatorEmail: "admincoder@coder.com",
 
   };
 };

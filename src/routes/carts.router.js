@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getCartService, deleteFromCartService, getCartsService,createCartService, updateProductQuantityService, clearCartService, addToCartService, updateCartService, purchaseService } from "../services/carts.service.js";
+import { getCartService, deleteFromCartService, getCartsService,createCartService, updateProductQuantityService, clearCartService, addToCartService, updateCartService, purchaseService, procesoCompraService } from "../services/carts.service.js";
 import TicketDTO from "../services/DTO/ticket.service.js";
 
 const router = Router();
@@ -18,6 +18,21 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
+router.get("/:cid/procesocompra", async (req, res, next) => {
+    try {
+        let user = req.session.user;
+        const id = req.params.cid;
+        const bole = true;
+        const carritoandUser = await getCartService(user, id, bole)
+        req.logger.debug(carritoandUser.carritofinal)
+        res.render('procesocompra',{carritoandUser});
+        
+    } catch (error) {
+        return next(error)
+    }
+});
+
+
 router.get("/", async (req, res) => {
     const carts = await getCartsService();
     res.send({status:"success", payload: carts});
@@ -32,7 +47,9 @@ router.post("/:cid/products/:pid", async (req, res,next) => {
     try {
         const cartId = req.params.cid;
         const productId = req.params.pid;
-        await addToCartService(cartId, productId);
+        const userEmail = req.session.user.email
+        console.log(userEmail)
+        await addToCartService(cartId, productId, userEmail);
     } catch (error) {
         return next(error)
     }

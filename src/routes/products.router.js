@@ -40,8 +40,9 @@ router.post("/", async (req, res, next) => {
     if (req.session.user.role == "premium"){
         try {
             const product = req.body;
-            const creadorId = req.session.user._id;
-            await addProductService(product, "premium", creadorId)
+            const creadorEmail = req.session.user.email;
+            console.log(req.session.user.email)
+            await addProductService(product, "premium", creadorEmail)
         } catch (error) {
             return next(error)
         }
@@ -62,7 +63,7 @@ router.post("/", async (req, res, next) => {
     res.send({status:"success"})
 });
 
-router.put("/:pid", (req, res) => {
+router.put("/:pid", async (req, res) => {
     if(req.session.user.role == "admin"){
         const productId = req.params.pid;
         const product = req.body;

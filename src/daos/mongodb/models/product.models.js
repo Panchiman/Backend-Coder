@@ -13,7 +13,7 @@ const ProductSchema = new mongoose.Schema({
     code: { type: String, required: true },
     stock: { type: Number, required: true },
     creatorRole: { type: String, required: true},
-    creatorId: { type: String, required: true},
+    creatorEmail: { type: String, required: true},
 })
 
 ProductSchema.plugin(mongoosePaginate)

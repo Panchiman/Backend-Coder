@@ -3,8 +3,11 @@ import ProductManager from '../daos/mongodb/classes/productManager.class.js';
 import config from '../config/config.js';
 import { addProductController } from '../controllers/products.controller.js';
 import ProductDTO from './DTO/productDTO.service.js';
+import Mail from '../config/nodemailer.config.js';
+import { getUserByEmailService, getUserByIdService } from './users.service.js';
 
 const productManager = new ProductManager();
+const mail = new Mail();
 
 export const getProductsService = async (user,limit, page, sort, filter, filterVal) => {
     if (!user) throw new Error ("No user found")
@@ -19,8 +22,8 @@ export const getProductsService = async (user,limit, page, sort, filter, filterV
     }
     
     let products = await productManager.getProducts(limit, page, sort, filter, filterVal);
-    products.prevLink = products.hasPrevPage?`http://localhost:${config.port}/products/?page=${products.prevPage}&limit=${limit}&sort=${sort}&filter=${filter}&filterVal=${filterVal}`:'';
-    products.nextLink = products.hasNextPage?`http://localhost:${config.port}/products/?page=${products.nextPage}&limit=${limit}&sort=${sort}&filter=${filter}&filterVal=${filterVal}`:'';
+    products.prevLink = products.hasPrevPage?`http://localhost:${config.PORT}/products/?page=${products.prevPage}&limit=${limit}&sort=${sort}&filter=${filter}&filterVal=${filterVal}`:'';
+    products.nextLink = products.hasNextPage?`http://localhost:${config.PORT}/products/?page=${products.nextPage}&limit=${limit}&sort=${sort}&filter=${filter}&filterVal=${filterVal}`:'';
     
     if (page<=0 || page>products.totalPages){
         throw new Error ("Page not found") ;
@@ -42,16 +45,21 @@ export const getProductByIdService = async (productId, user) => {
 }
 
 export const deleteProductService = async (productId) => {
-    productManager.deleteProduct(productId);
-
+    const product = await productManager.getProductById(productId)
+    if (product.creatorRole == "premium"){
+        console.log(product.creatorEmail)
+        const html = "<h1>Tu producto:"+ product.title +" fue eliminado de la tienda</h1>"
+        const nodemail = await mail.send(product.creatorEmail, "Un producto creado por ti fue eliminado", html)
+    }
+    await productManager.deleteProduct(productId);
 }
 export const updateProductService = async (productId, product) => {
-    productManager.updateProduct(productId, product);
+    await productManager.updateProduct(productId, product);
 
 }
-export const addProductService = async (product, role = "Admin", creatorId = "Admin") => {
+export const addProductService = async (product, role = "Admin", creatorEmail = "admincoder@coder.com") => {
     await addProductController(product)
-    const productDTO = new ProductDTO(product, role, creatorId)
+    const productDTO = new ProductDTO(product, role, creatorEmail)
     productManager.addProduct(productDTO);
 }
 

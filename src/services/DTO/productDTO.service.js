@@ -1,5 +1,5 @@
 export default class ProductDTO{
-    constructor(product, role, creatorId) {
+    constructor(product, role, creatorEmail) {
         this.title = product.title,
         this.description = product.description,
         this.price = product.price,
@@ -9,6 +9,6 @@ export default class ProductDTO{
         this.code = product.code,
         this.stock = product.stock,
         this.creatorRole = role,
-        this.creatorId = creatorId
+        this.creatorEmail = creatorEmail
     }
 }

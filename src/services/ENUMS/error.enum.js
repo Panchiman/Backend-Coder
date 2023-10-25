@@ -4,5 +4,6 @@ export const ErrorEnum = {
     DATABASE_ERROR: 3,
     PARAM_ERROR: 4,
     EMPTY_FIELD_ERROR: 5,
+    ACCESS_DENY_ERROR: 6,
   };
   

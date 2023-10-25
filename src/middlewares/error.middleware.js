@@ -18,6 +18,10 @@ export const errorMiddleware = (error, req, res, next) => {
         req.logger.error(`${error.name} - Cause: ${error.cause}`)
         res.send({ status: "error", error: error.name, cause: error.cause, general_description:"Alguno de los campos obligatorios estaba vacio" });
         break
+        case ErrorEnum.ACCESS_DENY_ERROR:
+        req.logger.error(`${error.name} - Cause: ${error.cause}`)
+        res.send({ status: "error", error: error.name, cause: error.cause, general_description:"Acceso denegado a este tipo de usuario" });
+        break
     default:
       req.logger.error(`Error sin definir`)
       res.send({ status: "error", mensaje: "error no manejado" });

@@ -1,0 +1,27 @@
+<div>
+    <h1>Finalizar compra</h1>
+    <form id="purchaseForm">
+        <hr>
+        <label for="nombrecard">Nombre completo del titular:</label>
+        <input type="text" id="nombrecard" name="numbercard">
+        <br>
+        <hr>
+        <label for="numbercard">Numero de la tarjeta:</label>
+        <input type="number" id="numbercard" name="numbercard">
+        <br/>
+    <hr>
+        <label for="expirationcard">Fecha de vencimiento:</label>
+        <input type="month" id="expirationcard" name="expirationcard">
+    <br><hr>
+        <label for="postalcode">Codigo Postal:</label>
+        <input type="number" id="postalcode" name="postalcode">
+        <br><hr>
+        <label for="location">Ciudad, Provincia, Pais:</label>
+        <input type="text" id="location" name="location">
+        <br><hr>
+    </form>
+    <button onclick="finalizarcompra('{{carritoandUser.user.idCart}}')">Finalizar compra</button>
+    <hr>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/cart.js"></script>

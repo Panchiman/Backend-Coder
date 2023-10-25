@@ -7,11 +7,12 @@
         <p>Precio: ${{this.product.price}} &nbsp; </p>
         <p>Categoria: {{this.product.category}} &nbsp; </p>
         <p>Cantidad: {{this.amount}}</p>
-        <button onclick="botonRemoveFromCart('{{carritoandUser.user.idCart}}', '{{this._id}}')">Quitar del carrito</button>
         <hr>
     </div>
     <br/>
     {{/each}}
     <a href="http://localhost:8080"><button>Volver a los productos</button></a>
+    <a href="http://localhost:8080/carts/{{carritoandUser.user.idCart}}/procesocompra"><button>Datos de pago</button></a>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/cart.js"></script>
 </div>

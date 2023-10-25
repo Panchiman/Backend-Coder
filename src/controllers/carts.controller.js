@@ -8,7 +8,7 @@ export const addCartByIdController = async (cart) => {
             name: "error al obtener el carrito",
             cause: "El carrito no se encuentra en nuestra base de datos",
             code: ErrorEnum.DATABASE_ERROR,
-          });
+        });
     }
 }
 
@@ -18,6 +18,6 @@ export const addToCartController = async (idCart,idProduct) => {
             name: "error al agregar al carrito",
             cause: "Debe ingresar una id del carrito y del producto a agregar",
             code: ErrorEnum.PARAM_ERROR,
-          });
+        });
     }
 }

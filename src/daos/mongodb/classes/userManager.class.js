@@ -49,14 +49,24 @@ export default class UserManager {
             return error;
         }
     }
+
     async deleteUser(id) {
         try {
             let result = await userModel.deleteOne(
                 { _id: id },
-                { $set: updatedUser }
                 );
             return result;
         } 
+        catch (error) {
+            return error;
+        }
+    }
+
+    async getUserByEmail(email){
+        try {
+            let result = await userModel.findOne({ email: email }).lean();
+            return result;
+        }
         catch (error) {
             return error;
         }

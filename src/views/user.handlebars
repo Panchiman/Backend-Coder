@@ -9,6 +9,10 @@
         <p><strong>Role:</strong> {{user.role}}</p>
         <p><strong>Cart ID:</strong> {{user.idCart}}</p>
         <hr>
+        <button onclick="eliminarUsuario('{{user._id}}')">Eliminar usuario</button>
+        <button onclick="cambiarUsuario('{{user._id}}')">Cambiar rol del usuario</button>
+    <br>
+    <br>
         <a href="http://localhost:8080/api/users"><button>Volver a todos los Usuarios</button></a>
     </div>
 </div>

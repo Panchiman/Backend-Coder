@@ -11,10 +11,16 @@ export const getUserByIdService = async (Id) => {
     console.log(user)
     return user}
 
+    export const getUserByEmailService = async (email) => {
+        let user = await userManager.getUserByEmail(email);
+        console.log(user)
+        return user}
+
     export const deleteUserService = async (userId) => {
-        userManager.deleteuser(userId);
+        await userManager.deleteUser(userId);
     
     }
     export const updateUserService = async (userId, user) => {
-        userManager.updateuser(userId, user);
+        const Finaluser = await userManager.updateUser(userId, user);
+        console.log(Finaluser)
     }

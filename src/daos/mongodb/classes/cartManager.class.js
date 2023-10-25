@@ -82,8 +82,17 @@ export default class CartManager {
     async deleteFromCart(idCart, idProduct) {
         try {
             const cart = await this.getCartById(idCart);
-            cart.products.pull(idProduct);
-            await cart.save();
+            const index =  cart.products.findIndex((item) => item.product._id == idProduct)
+            const producto = await this.productManager.getProductById(idProduct);
+                if (cart.products[index].amount <= 1){
+                    cart.products.splice(index,1)
+                }
+                else{
+                    cart.products.splice(index,1,{ product: producto, amount: cart.products[index].amount - 1 })
+                }
+                await cart.save()
+            // cart.products.pull(idProduct);
+            // await cart.save();
             return true;
         }
         catch (error) {
