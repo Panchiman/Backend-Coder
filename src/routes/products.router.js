@@ -18,13 +18,14 @@ export const roleAdminCheck = (req, res, next) => {
 }
 
 const lastSessionRegister = (req, res, next) => {
-    const userSession = req.user
+    const userSession = req.session.user
+    console.log(req.session.user)
     if (!userSession){
         return res.redirect('/')
     }
     const user = {lastSession: new Date()}
     console.log(user)
-    updateUserServiceWithMail(req.user.email,user)
+    updateUserServiceWithMail(req.session.user.email,user)
     next();
 };
 
@@ -76,9 +77,20 @@ router.post("/", async (req, res, next) => {
 });
 
 router.put("/:pid", async (req, res) => {
-    if(req.session.user.role == "admin"){
-        const productId = req.params.pid;
-        const product = req.body;
+    const productId = req.params.pid;
+    const product = req.body;
+    if(req.session.user.role == "premium"){
+        const user = req.session.user
+        const productOld = await getProductByIdService(productId, user)
+        if (productOld.producto.creatorEmail == user.email){
+            updateProductService(productId, product);
+            res.send({ status: "success" });
+        }
+        else{
+            res.send({error: "acceso denegado"})
+        }
+    }
+    else if(req.session.user.role == "admin"){
         updateProductService(productId, product);
         res.send({ status: "success" });
     }
@@ -87,9 +99,20 @@ router.put("/:pid", async (req, res) => {
     }
 })
 
-router.delete("/:pid", (req, res) => {
+router.delete("/:pid", async (req, res) => {
+    const productId = req.params.pid;
+    if(req.session.user.role == "premium"){
+        const user = req.session.user
+        const productOld = await getProductByIdService(productId, user)
+        if (productOld.producto.creatorEmail == user.email){
+            deleteProductService(productId);
+            res.send({ status: "success" });
+        }
+        else{
+            res.send({error: "acceso denegado"})
+        }
+    }
     if(req.session.user.role == "admin"){
-        const productId = req.params.pid;
         deleteProductService(productId);
         res.send({ status: "success" });
     }

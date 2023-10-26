@@ -2,6 +2,7 @@
     <h2>¡Bienvenido {{productsandUser.user.role}} {{productsandUser.user.first_name}} {{productsandUser.user.last_name}}!</h2>
     <a href="/profile"><button>Perfil</button></a>
     <a href="/carts/{{productsandUser.user.idCart}}"><button>Carrito</button></a>
+    <a href="/api/users"><button>Usuarios</button></a>
     <a href="/api/sessions/logout"><button>Desconectarse</button></a>
     <h1>Productos:</h1>
     {{#each productsandUser.products.docs}}

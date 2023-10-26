@@ -6,13 +6,12 @@ import { updateUserServiceWithMail } from "../services/users.service.js";
 const router = Router();
 
 const lastSessionRegister = (req, res, next) => {
-    const userSession = req.user
+    const userSession = req.session.user
     if (!userSession){
         return res.redirect('/')
     }
     const user = {lastSession: new Date()}
-    console.log(user)
-    updateUserServiceWithMail(req.user.email,user)
+    updateUserServiceWithMail(req.session.user.email,user)
     next();
 };
 
